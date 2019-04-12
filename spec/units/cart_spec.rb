@@ -29,5 +29,10 @@ RSpec.describe Cart do
       cart.remove_item(womens_shoes)
       expect(cart.basket).to_not include(womens_shoes)
     end
+
+    it "removes item price from total_cost" do
+      cart.add_item(womens_shoes)
+      expect { cart.remove_item(womens_shoes) }.to change { cart.total_cost }.by -42.00
+    end
   end
 end
