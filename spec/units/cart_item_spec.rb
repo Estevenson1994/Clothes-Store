@@ -6,4 +6,10 @@ RSpec.describe CartItem do
   it { is_expected.to have_attributes(category: "Footwear") }
   it { is_expected.to have_attributes(price: 10) }
   it { is_expected.to have_attributes(quantity: 1) }
+
+  describe "#increase_quantity" do
+    it "increases item quantity by 1" do
+      expect { cart_item.increase_quantity }.to change { cart_item.quantity }.by 1
+    end
+  end
 end
