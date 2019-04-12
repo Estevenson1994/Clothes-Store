@@ -18,4 +18,15 @@ RSpec.describe CartItem do
       expect { cart_item.decrease_quantity }.to change { cart_item.quantity }.by -1
     end
   end
+
+  describe "#more_than_one" do
+    it "returns true if quantity is greater than one" do
+      multi_cart_item = CartItem.new(1, "Footwear", 10, 2)
+      expect(multi_cart_item).to be_more_than_one
+    end
+
+    it "returns false if quantity is one" do
+      expect(cart_item).to_not be_more_than_one
+    end
+  end
 end
