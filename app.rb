@@ -24,4 +24,11 @@ class ClothesStore < Sinatra::Base
     session[:cart].add_item(cart_item)
     redirect "/products"
   end
+
+  post "/cart/products/:id/delete" do
+    item = Product.find(params[:id].to_i)
+    cart_item = CartItem.new(item.id, item.category, item.price, 1)
+    session[:cart].remove_item(cart_item)
+    redirect "/products"
+  end
 end
