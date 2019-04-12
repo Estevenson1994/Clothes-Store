@@ -12,20 +12,18 @@ class Product < ActiveType::Object
 
   def self.all
     DATA.map do |item|
-      Product.new(
-        id: item[:id],
-        name: item[:name],
-        colour: item[:colour],
-        gender: item[:gender],
-        category: item[:category],
-        price: item[:price],
-        stock: item[:stock],
-      )
+      create_product(item)
     end
   end
 
   def self.find(id)
     item = DATA.select { |item| item[:id] == id }.first
+    create_product(item)
+  end
+
+  private
+
+  def self.create_product(item)
     Product.new(
       id: item[:id],
       name: item[:name],
