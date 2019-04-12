@@ -8,6 +8,7 @@ gem 'sinatra-flash'
 
 group :test do
   gem 'capybara'
+  gem 'codeclimate-test-reporter'
   gem 'rspec'
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false
