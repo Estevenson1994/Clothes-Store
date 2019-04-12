@@ -5,4 +5,8 @@ class Cart
     @total_cost = 0
     @basket = []
   end
+
+  def add_item(item)
+    @basket << item
+  end
 end
