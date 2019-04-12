@@ -2,6 +2,10 @@
 
 ENV["ENVIRONMENT"] = "test"
 
+#Bringing in the contents of 'app.rb' file
+
+require File.join(File.dirname(__FILE__), "..", "app.rb")
+
 # Requiring all of the testing gems
 
 require "capybara"
@@ -9,6 +13,10 @@ require "capybara/rspec"
 require "rspec"
 require "simplecov"
 require "simplecov-console"
+
+#Tell Capybara to talk to ClothesStore
+
+Capybara.app = ClothesStore
 
 # Get test coverage
 
