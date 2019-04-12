@@ -3,11 +3,11 @@ require "./lib/product"
 
 class ClothesStore < Sinatra::Base
   get "/" do
-    erb :'index'
+    erb :index
   end
 
   get "/products" do
     @products = Product.all
-    erb :'products'
+    erb :products
   end
 end

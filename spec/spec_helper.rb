@@ -2,7 +2,7 @@
 
 ENV["ENVIRONMENT"] = "test"
 
-#Bringing in the contents of 'app.rb' file
+# Bringing in the contents of 'app.rb' file
 
 require File.join(File.dirname(__FILE__), "..", "app.rb")
 
@@ -14,7 +14,7 @@ require "rspec"
 require "simplecov"
 require "simplecov-console"
 
-#Tell Capybara to talk to ClothesStore
+# Tell Capybara to talk to ClothesStore
 
 Capybara.app = ClothesStore
 
