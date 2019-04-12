@@ -1,0 +1,9 @@
+<h1> Items Available: </h1>
+
+<ul class="products">
+  <% @products.each do |item| %>
+    <li id='product-<%= item.id %>'>
+      <p> <%= item.gender %>'s <%= item.category %>: <%= item.name %> in <%= item.colour %> - £<%= '%.2f' % item.price %>, total stock: <%= item.stock %></p>
+    </li>
+  <% end %>
+</ul>
