@@ -29,4 +29,11 @@ RSpec.describe Checkout do
     end
   end
 
+  describe "#total_cost" do
+    it "returns total cost including discounts" do
+      checkout.apply_voucher(five_pound_voucher)
+      checkout.apply_voucher(ten_pound_voucher)
+      expect(checkout.total_cost).to eq 37
+    end
+  end
 end

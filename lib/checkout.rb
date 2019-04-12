@@ -19,4 +19,8 @@ class Checkout
       discount + voucher.amount
     end
   end
+
+  def total_cost
+    total_item_cost - total_discount
+  end
 end
