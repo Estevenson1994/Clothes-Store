@@ -12,7 +12,12 @@ class Cart
   end
 
   def remove_item(item)
-    @basket.delete(item)
+    cart_item = @basket.find { |cart_item| cart_item.id == item.id }
+    if cart_item.more_than_one?
+      cart_item.decrease_quantity
+    else
+      @basket.delete(item)
+    end
     @total_cost -= item.price
   end
 

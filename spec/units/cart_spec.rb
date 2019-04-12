@@ -3,6 +3,7 @@ require "cart"
 RSpec.describe Cart do
   let(:womens_shoes) { double :womens_shoes, id: 1, category: "Footwear", price: 42.00, quantity: 1 }
   let(:womens_shoes2) { double :womens_shoes2, id: 1, category: "Footwear", price: 42.00, quantity: 1 }
+  let(:mens_shoes) { double :mens_shoes, id: 1, category: "Footwear", price: 10.00, quantity: 2 }
   subject(:cart) { described_class.new }
 
   it "has an initial total cost of 0" do
@@ -31,6 +32,10 @@ RSpec.describe Cart do
   end
 
   describe "#remove_item" do
+    before(:each) do
+      allow(womens_shoes).to receive(:more_than_one?).and_return(false)
+    end
+
     it "removes item from the basket" do
       cart.add_item(womens_shoes)
       cart.remove_item(womens_shoes)
@@ -40,6 +45,13 @@ RSpec.describe Cart do
     it "removes item price from total_cost" do
       cart.add_item(womens_shoes)
       expect { cart.remove_item(womens_shoes) }.to change { cart.total_cost }.by -42.00
+    end
+
+    it "doesn't remove item if quantity is greater than 1" do
+      cart.add_item(mens_shoes)
+      allow(mens_shoes).to receive(:more_than_one?).and_return true
+      allow(mens_shoes).to receive(:decrease_quantity)
+      expect { cart.remove_item(mens_shoes) }.to change { cart.basket.length }.by 0
     end
   end
 end
