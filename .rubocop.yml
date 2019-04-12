@@ -46,6 +46,7 @@ Metrics/LineLength:
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
+    - 'product_data.rb'
 
 Metrics/BlockLength:
   Exclude:
