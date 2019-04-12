@@ -8,6 +8,7 @@ class Cart
 
   def add_item(item)
     @basket << item
+    @total_cost += item.price
   end
 
   def remove_item(item)

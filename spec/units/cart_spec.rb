@@ -17,6 +17,10 @@ RSpec.describe Cart do
       cart.add_item(womens_shoes)
       expect(cart.basket).to include(womens_shoes)
     end
+
+    it "adds item price to total_cost" do
+      expect { cart.add_item(womens_shoes) }.to change { cart.total_cost }.by 42.00
+    end
   end
 
   describe "#remove_item" do
