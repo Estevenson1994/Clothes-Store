@@ -1,0 +1,1 @@
+CartItem = Struct.new(:id, :category, :price, :quantity)
