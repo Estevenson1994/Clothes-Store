@@ -3,6 +3,7 @@ require "./lib/product"
 require "./lib/cart"
 require "./lib/cart_item"
 require "./lib/checkout"
+require "./lib/voucher"
 
 class ClothesStore < Sinatra::Base
   enable :sessions, :method_overide
@@ -35,8 +36,14 @@ class ClothesStore < Sinatra::Base
 
   get "/checkout" do
     @product = Product
-    session[:checkout] = Checkout.new(session[:cart])
+    session[:checkout] = Checkout.new(session[:cart]) if session[:checkout].nil?
     @checkout = session[:checkout]
     erb :'checkout'
+  end
+
+  post "/checkout/voucher/add" do
+    voucher = Voucher.find(params[:voucher])
+    session[:checkout].apply_voucher(voucher)
+    redirect("/checkout")
   end
 end

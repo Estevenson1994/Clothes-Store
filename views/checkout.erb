@@ -7,4 +7,24 @@
   <% end %>
 </ul>
 
+<p>Add voucher: <form action='/checkout/voucher/add' method="POST">
+                  <input name="voucher" type="text" placeholder="Enter voucher code">
+                  <input value="add" type="submit">
+                  </form></p>
+
 <p>Total item cost: £<%= '%.2f' % @checkout.total_item_cost%></p>
+
+<p>Discounts: <ul class="Vouchers">
+                <% @checkout.vouchers.each do |voucher| %>
+                  <li id="voucher-<% voucher.id %>">
+                    <p> <%= voucher.id %>, discount: - £<%= '%.2f' % voucher.amount %> </p>
+                 </li>
+                <% end %>
+              </ul>
+</p>
+
+<% if @checkout.vouchers.length > 0 %>
+  <p> Total discount: - £<%= '%.2f' % @checkout.total_discount %>
+<% end %>
+
+<p>Total including discounts: £<%= '%.2f' % @checkout.total_cost%> </p>
