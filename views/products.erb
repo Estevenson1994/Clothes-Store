@@ -19,7 +19,6 @@
     <li id="checkout-product-<% item.id %>">
       <p> <%= @product.find(item.id).name %> in <%= @product.find(item.id).colour %> - £<%= '%.2f' % item.price %>, quantity: <%=item.quantity%> </p>
       <form action="/cart/products/<%= item.id %>/delete" method="POST">
-        <input type="hidden" name="_method" value="DELETE">
         <input type='submit' value='Remove from basket'>
       </form>
     </li>
