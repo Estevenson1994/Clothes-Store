@@ -1,7 +1,6 @@
 # Set the environment to test
 
-ENV['ENVIRONMENT'] = 'test'
-
+ENV["ENVIRONMENT"] = "test"
 
 # Requiring all of the testing gems
 
@@ -17,7 +16,9 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
   SimpleCov::Formatter::Console,
 ])
 
-SimpleCov.start
+SimpleCov.start do
+  add_filter "data_setup.rb"
+end
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
