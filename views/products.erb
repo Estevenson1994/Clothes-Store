@@ -27,3 +27,7 @@
 
  <p>Total Cost:</p>
  <p>£<%= '%.2f' % @cart.total_cost%></p>
+
+ <form action='/checkout' method="GET">
+  <input type='submit' value='Checkout'>
+</form>

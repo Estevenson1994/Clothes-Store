@@ -1,0 +1,10 @@
+<h2>Checkout </h2>
+<ul class="Shopping_Cart">
+  <% @checkout.cart.basket.each do |item|%>
+    <li id="checkout-product-<% item.id %>">
+      <p> <%= @product.find(item.id).name %> in <%= @product.find(item.id).colour %> - £<%= '%.2f' % item.price %>, quantity: <%=item.quantity%> </p>
+    </li>
+  <% end %>
+</ul>
+
+<p>Total item cost: £<%= '%.2f' % @checkout.total_item_cost%></p>

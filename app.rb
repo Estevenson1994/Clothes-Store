@@ -2,6 +2,7 @@ require "sinatra/base"
 require "./lib/product"
 require "./lib/cart"
 require "./lib/cart_item"
+require "./lib/checkout"
 
 class ClothesStore < Sinatra::Base
   enable :sessions, :method_overide
@@ -30,5 +31,12 @@ class ClothesStore < Sinatra::Base
     cart_item = CartItem.new(item.id, item.category, item.price, 1)
     session[:cart].remove_item(cart_item)
     redirect "/products"
+  end
+
+  get "/checkout" do
+    @product = Product
+    session[:checkout] = Checkout.new(session[:cart])
+    @checkout = session[:checkout]
+    erb :'checkout'
   end
 end
