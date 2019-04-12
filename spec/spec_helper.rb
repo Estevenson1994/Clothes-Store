@@ -1,3 +1,8 @@
+# Set the environment to test
+
+ENV['ENVIRONMENT'] = 'test'
+
+
 # Requiring all of the testing gems
 
 require "capybara"
