@@ -9,4 +9,13 @@ RSpec.describe Product do
   it { is_expected.to have_attributes(category: "Footwear") }
   it { is_expected.to have_attributes(price: 99.00) }
   it { is_expected.to have_attributes(stock: 5) }
+
+  describe "#all" do
+    it "returns all items" do
+      items = Product.all
+      expect(items.length).to eq 13
+      expect(items.first).to be_a Product
+      expect(items.first.name).to eq "Almond Toe Court Shoes"
+    end
+  end
 end
