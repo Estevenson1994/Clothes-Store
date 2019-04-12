@@ -7,7 +7,12 @@ class Cart
   end
 
   def add_item(item)
-    @basket << item
+    if @basket.any? { |cart_item| cart_item.id == item.id }
+      cart_item = @basket.find { |cart_item| cart_item.id == item.id }
+      cart_item.increase_quantity
+    else
+      @basket << item
+    end
     @total_cost += item.price
   end
 

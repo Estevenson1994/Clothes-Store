@@ -2,6 +2,7 @@ require "cart"
 
 RSpec.describe Cart do
   let(:womens_shoes) { double :womens_shoes, id: 1, category: "Footwear", price: 42.00, quantity: 1 }
+  let(:womens_shoes2) { double :womens_shoes2, id: 1, category: "Footwear", price: 42.00, quantity: 1 }
   subject(:cart) { described_class.new }
 
   it "has an initial total cost of 0" do
@@ -20,6 +21,12 @@ RSpec.describe Cart do
 
     it "adds item price to total_cost" do
       expect { cart.add_item(womens_shoes) }.to change { cart.total_cost }.by 42.00
+    end
+
+    it "will not add new item if item is already in the basket" do
+      cart.add_item(womens_shoes)
+      allow(womens_shoes).to receive(:increase_quantity)
+      expect { cart.add_item(womens_shoes2) }.to change { cart.basket.length }.by 0
     end
   end
 
