@@ -10,4 +10,8 @@ class ClothesStore < Sinatra::Base
     @products = Product.all
     erb :products
   end
+
+  post "/cart/products/:id" do
+    redirect "/products"
+  end
 end

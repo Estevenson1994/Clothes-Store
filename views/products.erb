@@ -4,6 +4,16 @@
   <% @products.each do |item| %>
     <li id='product-<%= item.id %>'>
       <p> <%= item.gender %>'s <%= item.category %>: <%= item.name %> in <%= item.colour %> - £<%= '%.2f' % item.price %>, total stock: <%= item.stock %></p>
+      <form action="/cart/products/<%= item.id %>" method="POST">
+        <input type='submit' value='Add to basket'>
+      </form>
     </li>
   <% end %>
 </ul>
+
+
+<p>Shopping Cart</p>
+
+<ul class="shopping_cart">
+  <li>Almond Toe Court Shoes in Patent Black - £99.00, quantity: 1</li>
+ </ul>
