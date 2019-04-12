@@ -12,5 +12,9 @@ RSpec.describe Voucher do
       voucher = Voucher.find("Five")
       expect(voucher).to have_attributes(id: "Five", amount: 5, min_spend: 0, required_item: nil)
     end
+
+    it "raises error if incorrect id is given" do
+      expect { Voucher.find("not an id") }.to raise_error("Invalid voucher id")
+    end
   end
 end

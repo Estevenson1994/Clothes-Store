@@ -8,10 +8,14 @@ class Voucher < ActiveType::Object
   attribute :required_item, :string
 
   def self.find(id)
-    voucher = VOUCHERS.select { |voucher| voucher[:id] == id }.first
-    Voucher.new(id: voucher[:id],
-                amount: voucher[:amount],
-                min_spend: voucher[:min_spend],
-                required_item: voucher[:required_item])
+    if VOUCHERS.any? { |voucher| voucher[:id] == id }
+      voucher = VOUCHERS.select { |voucher| voucher[:id] == id }.first
+      Voucher.new(id: voucher[:id],
+                  amount: voucher[:amount],
+                  min_spend: voucher[:min_spend],
+                  required_item: voucher[:required_item])
+    else
+      raise "Invalid voucher id"
+    end
   end
 end
