@@ -18,4 +18,17 @@ RSpec.describe Product do
       expect(items.first.name).to eq "Almond Toe Court Shoes"
     end
   end
+
+  describe '#find' do
+    it 'returns item with specified id' do
+      item = Product.find(1)
+      expect(item).to have_attributes(id: 1)
+      expect(item).to have_attributes(name: "Almond Toe Court Shoes")
+      expect(item).to have_attributes(colour: "Patent Black")
+      expect(item).to have_attributes(gender: "Women")
+      expect(item).to have_attributes(category: "Footwear")
+      expect(item).to have_attributes(price: 99.00)
+      expect(item).to have_attributes(stock: 5)
+    end
+  end
 end

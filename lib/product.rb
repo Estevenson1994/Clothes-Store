@@ -23,4 +23,17 @@ class Product < ActiveType::Object
       )
     end
   end
+
+  def self.find(id)
+    item = DATA.select { |item| item[:id] == id }.first
+    Product.new(
+      id: item[:id],
+      name: item[:name],
+      colour: item[:colour],
+      gender: item[:gender],
+      category: item[:category],
+      price: item[:price],
+      stock: item[:stock],
+    )
+    end 
 end
