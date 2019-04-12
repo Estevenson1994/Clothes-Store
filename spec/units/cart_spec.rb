@@ -18,4 +18,12 @@ RSpec.describe Cart do
       expect(cart.basket).to include(womens_shoes)
     end
   end
+
+  describe "#remove_item" do
+    it "removes item from the basket" do
+      cart.add_item(womens_shoes)
+      cart.remove_item(womens_shoes)
+      expect(cart.basket).to_not include(womens_shoes)
+    end
+  end
 end

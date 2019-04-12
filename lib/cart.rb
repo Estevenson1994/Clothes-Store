@@ -9,4 +9,8 @@ class Cart
   def add_item(item)
     @basket << item
   end
+
+  def remove_item(item)
+    @basket.delete(item)
+  end
 end
