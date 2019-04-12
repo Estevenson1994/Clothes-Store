@@ -12,12 +12,7 @@ class Cart
   end
 
   def remove_item(item)
-    cart_item = @basket.find { |cart_item| cart_item.id == item.id }
-    if cart_item.more_than_one?
-      cart_item.decrease_quantity
-    else
-      @basket.delete(item)
-    end
+    more_than_one(item) ? descrease_item_quantity(item) : remove_item_from_basket(item)
     @total_cost -= item.price
   end
 
@@ -27,12 +22,26 @@ class Cart
     @basket.any? { |cart_item| cart_item.id == item.id }
   end
 
+  def more_than_one(item)
+    cart_item = @basket.find { |cart_item| cart_item.id == item.id }
+    cart_item.more_than_one?
+  end
+
   def increase_item_quantity(item)
     cart_item = @basket.find { |cart_item| cart_item.id == item.id }
     cart_item.increase_quantity
   end
 
+  def descrease_item_quantity(item)
+    cart_item = @basket.find { |cart_item| cart_item.id == item.id }
+    cart_item.decrease_quantity
+  end
+
   def add_item_to_basket(item)
     @basket << item
+  end
+
+  def remove_item_from_basket(item)
+    @basket.delete(item)
   end
 end
