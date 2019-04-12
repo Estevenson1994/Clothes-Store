@@ -35,5 +35,5 @@ class Product < ActiveType::Object
       price: item[:price],
       stock: item[:stock],
     )
-    end 
+  end
 end

@@ -15,5 +15,9 @@
 <p>Shopping Cart</p>
 
 <ul class="shopping_cart">
-  <li>Almond Toe Court Shoes in Patent Black - £99.00, quantity: 1</li>
+   <% @cart.basket.each do |item|%>
+    <li id="checkout-product-<% item.id %>">
+      <p> <%= @product.find(item.id).name %> in <%= @product.find(item.id).colour %> - £<%= '%.2f' % item.price %>, quantity: <%=item.quantity%> </p>
+    </li>
+  <% end %>
  </ul>

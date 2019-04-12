@@ -19,8 +19,8 @@ RSpec.describe Product do
     end
   end
 
-  describe '#find' do
-    it 'returns item with specified id' do
+  describe "#find" do
+    it "returns item with specified id" do
       item = Product.find(1)
       expect(item).to have_attributes(id: 1)
       expect(item).to have_attributes(name: "Almond Toe Court Shoes")
