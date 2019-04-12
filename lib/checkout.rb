@@ -13,4 +13,10 @@ class Checkout
   def apply_voucher(voucher)
     @vouchers << voucher
   end
+
+  def total_discount
+    @vouchers.inject(0) do |discount, voucher|
+      discount + voucher.amount
+    end
+  end
 end
