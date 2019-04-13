@@ -40,4 +40,13 @@ RSpec.describe Product do
       expect(original_stock - final_stock).to eq 1
     end
   end
+
+  describe "#increase_stock" do
+    it "increases item stock by one" do
+      original_stock = Product.find(1).stock
+      Product.increase_stock(1)
+      final_stock = Product.find(1).stock
+      expect(original_stock - final_stock).to eq -1
+    end
+  end
 end

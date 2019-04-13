@@ -26,6 +26,11 @@ class Product < ActiveType::Object
     DATA[index][:stock] -= 1
   end
 
+  def self.increase_stock(id)
+    index = DATA.find_index { |item| item[:id] == id }
+    DATA[index][:stock] += 1
+  end
+
   private
 
   def self.create_product(item)
