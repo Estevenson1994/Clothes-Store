@@ -19,6 +19,12 @@ RSpec.describe Checkout do
       checkout.apply_voucher(five_pound_voucher)
       expect(checkout.vouchers).to include(five_pound_voucher)
     end
+
+    it "raises an error if spend is too low for voucher" do
+      cart2 = double(:cart2, basket: [womens_shoes], total_cost: 42.00)
+      checkout2 = Checkout.new(cart2)
+      expect { checkout2.apply_voucher(ten_pound_voucher) }.to raise_error("Invalid voucher, total cost too low")
+    end
   end
 
   describe "#total_discount" do

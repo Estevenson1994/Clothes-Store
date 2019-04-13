@@ -11,6 +11,7 @@ class Checkout
   end
 
   def apply_voucher(voucher)
+    raise "Invalid voucher, total cost too low" if total_item_cost < voucher.min_spend
     @vouchers << voucher
   end
 
