@@ -1,7 +1,9 @@
+require_relative "./web_helper"
+
 feature "Shopping Basket" do
+  include Helpers
   scenario "user can add item to basket and see it in the cart" do
-    visit "/"
-    click_button("View Products")
+    enter_product_page
     within ".products" do
       click_button("Add to basket", :match => :first)
     end
@@ -11,8 +13,7 @@ feature "Shopping Basket" do
   end
 
   scenario "user can remove item from the basket" do
-    visit "/"
-    click_button("View Products")
+    enter_product_page
     within ".products" do
       click_button("Add to basket", :match => :first)
     end
@@ -25,8 +26,7 @@ feature "Shopping Basket" do
   end
 
   scenario "shows total cost of all items in the basket" do
-    visit "/"
-    click_button("View Products")
+    enter_product_page
     within ".products" do
       click_button("Add to basket", :match => :first)
     end
@@ -37,8 +37,7 @@ feature "Shopping Basket" do
   end
 
   scenario "item price is subtracted when removed from the basket" do
-    visit "/"
-    click_button("View Products")
+    enter_product_page
     within ".products" do
       click_button("Add to basket", :match => :first)
     end
@@ -52,8 +51,7 @@ feature "Shopping Basket" do
   end
 
   scenario "user cannot add item that is out of stock to basket" do
-    visit "/"
-    click_button("View Products")
+    enter_product_page
     within "#product-5" do
       click_button("Add to basket")
     end

@@ -1,7 +1,9 @@
+require_relative "./web_helper"
+
 feature "Checkout" do
+  include Helpers
   scenario "shows all items and total cost of all items in the basket" do
-    visit "/"
-    click_button("View Products")
+    enter_product_page
     within ".products" do
       click_button("Add to basket", :match => :first)
     end
@@ -16,8 +18,7 @@ feature "Checkout" do
   end
 
   scenario "can add voucher at checkout and see the discount" do
-    visit "/"
-    click_button("View Products")
+    enter_product_page
     within ".products" do
       click_button("Add to basket", :match => :first)
     end
@@ -36,8 +37,7 @@ feature "Checkout" do
   end
 
   scenario "user cannot add voucher if spend is too low" do
-    visit "/"
-    click_button("View Products")
+    enter_product_page
     within "#product-3" do
       click_button("Add to basket")
     end
@@ -50,8 +50,7 @@ feature "Checkout" do
   end
 
   scenario "user cannot add voucher if cart doesnt contain required item" do
-    visit "/"
-    click_button("View Products")
+    enter_product_page
     within "#product-12" do
       click_button("Add to basket")
     end
