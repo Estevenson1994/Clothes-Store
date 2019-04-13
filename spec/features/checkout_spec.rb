@@ -36,4 +36,14 @@ feature "Checkout" do
     checkout_and_add_voucher("Fifteen")
     expect(page).to have_content("Invalid voucher, cart doesn't contain any Footwear")
   end
+
+  scenario "user can go back to shopping once at checkout" do
+    enter_product_page
+    add_first_item_to_basket
+    click_button("Checkout")
+    click_button("Back to shopping")
+    expect(page).to have_content("Shopping Cart")
+    expect(page.find(".shopping_cart")).to have_selector("li", count: 1)
+    expect(page).to have_content("Almond Toe Court Shoes in Patent Black - £99.00, quantity: 1")
+  end
 end
