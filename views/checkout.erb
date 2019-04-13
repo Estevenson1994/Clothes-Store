@@ -15,9 +15,9 @@
     <h2 class="text-center">Items</h3>
     <ul class="Shopping_Cart">
       <% @checkout.cart.basket.each do |item|%>
-        <li id="checkout-product-<% item.id %>">
+        <div id="checkout-product-<% item.id %>">
         <p> <%= @product.find(item.id).name %> in <%= @product.find(item.id).colour %> - £<%= '%.2f' % item.price %>, quantity: <%=item.quantity%> </p>
-        </li>
+        </div><!--checkout-product-->
       <% end %>
     </ul>
     </div><!--/col-md-6-->
@@ -39,9 +39,9 @@
 
     <p>Discounts: <ul class="Vouchers">
                     <% @checkout.vouchers.each do |voucher| %>
-                      <li id="voucher-<% voucher.id %>">
+                      <div id="voucher-<% voucher.id %>">
                         <p> <%= voucher.id %>, discount: - £<%= '%.2f' % voucher.amount %> </p>
-                     </li>
+                     </div><!--/voucher-->
                     <% end %>
                   </ul>
     </p>
