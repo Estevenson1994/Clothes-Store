@@ -12,7 +12,7 @@ feature "Checkout" do
     expect(page).to have_content("Total item cost: £198.00")
   end
 
-  scenario "can add voucher at checkout and see the discount" do
+  scenario "user can add voucher at checkout and see the discount" do
     enter_product_page
     add_first_item_to_basket
     add_first_item_to_basket
