@@ -25,13 +25,14 @@
     <div class="col-md-6">
 
     <h2 class="text-center">Total cost</h2>
+    <div class="panel panel-default">
+    <p class="text-center">Add voucher:</p>
+    <form class="text-center" action='/checkout/voucher/add' method="POST">
+      <input name="voucher" type="text" placeholder="Enter voucher code">
+      <input value="add" type="submit">
+    </form>
 
-    <p>Add voucher: <form action='/checkout/voucher/add' method="POST">
-                      <input name="voucher" type="text" placeholder="Enter voucher code">
-                      <input value="add" type="submit">
-                      </form></p>
-
-     <h2> 
+    <h2> 
        <%= flash[:notice] %>
     </h2>
 
@@ -51,8 +52,10 @@
     <% end %>
 
     <p>Total including discounts: £<%= '%.2f' % @checkout.total_cost%> </p>
+    </div><!--panel panel-default-->
     </div><!--/col-md-6-->
     </div><!--/row-->
   </div><!--/container-->
+
 </body>
 </html>
