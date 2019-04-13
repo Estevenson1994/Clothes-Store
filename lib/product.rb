@@ -22,12 +22,12 @@ class Product < ActiveType::Object
   end
 
   def self.reduce_stock(id)
-    index = DATA.find_index { |item| item[:id] == id }
+    index = find_item_index(id)
     DATA[index][:stock] -= 1
   end
 
   def self.increase_stock(id)
-    index = DATA.find_index { |item| item[:id] == id }
+    index = find_item_index(id) 
     DATA[index][:stock] += 1
   end
 
@@ -43,5 +43,9 @@ class Product < ActiveType::Object
       price: item[:price],
       stock: item[:stock],
     )
+  end
+
+  def self.find_item_index(id)
+    DATA.find_index { |item| item[:id] == id }
   end
 end
