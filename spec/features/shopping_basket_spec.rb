@@ -13,9 +13,7 @@ feature "Shopping Basket" do
   scenario "user can remove item from the basket" do
     enter_product_page
     add_first_item_to_basket
-    within ".shopping_cart" do
-      click_button("Remove from basket", :match => :first)
-    end
+    remove_first_item_from_basket
     expect(page).to have_content("Shopping Cart")
     expect(page.find(".shopping_cart")).to have_selector("li", count: 0)
     expect(page).to_not have_content("Almond Toe Court Shoes in Patent Black - £99.00, quantity: 1")
