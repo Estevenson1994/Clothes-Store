@@ -23,21 +23,21 @@ class Cart
   private
 
   def basket_contains_item(item)
-    @basket.any? { |cart_item| cart_item.id == item.id }
+    @basket.any? { |basket_item| basket_item.id == item.id }
   end
 
   def more_than_one(item)
-    cart_item = @basket.find { |cart_item| cart_item.id == item.id }
+    cart_item = @basket.find { |basket_item| basket_item.id == item.id }
     cart_item.more_than_one?
   end
 
   def increase_item_quantity(item)
-    cart_item = @basket.find { |cart_item| cart_item.id == item.id }
+    cart_item = @basket.find { |basket_item| basket_item.id == item.id }
     cart_item.increase_quantity
   end
 
   def descrease_item_quantity(item)
-    cart_item = @basket.find { |cart_item| cart_item.id == item.id }
+    cart_item = @basket.find { |basket_item| basket_item.id == item.id }
     cart_item.decrease_quantity
   end
 
