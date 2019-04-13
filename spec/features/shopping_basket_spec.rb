@@ -19,6 +19,13 @@ feature "Shopping Basket" do
     expect(page).to_not have_content("Almond Toe Court Shoes in Patent Black - £99.00, quantity: 1")
   end
 
+  scenario "stock descrease when item is added to the basket" do
+    enter_product_page
+    add_first_item_to_basket
+    expect(page).to have_content("Almond Toe Court Shoes in Patent Black - £99.00, quantity: 1")
+    expect(page).to have_content("Women's Footwear: Almond Toe Court Shoes in Patent Black - £99.00, total stock: 4")
+  end
+
   scenario "shows total cost of all items in the basket" do
     enter_product_page
     add_first_item_to_basket
