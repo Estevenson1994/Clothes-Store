@@ -15,7 +15,7 @@ RSpec.describe CartItem do
 
   describe "#descrease_quantity" do
     it "decreases item quanity by 1" do
-      expect { cart_item.decrease_quantity }.to change { cart_item.quantity }.by -1
+      expect { cart_item.decrease_quantity }.to change { cart_item.quantity }.by(-1)
     end
   end
 

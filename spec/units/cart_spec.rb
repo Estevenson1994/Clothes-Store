@@ -49,7 +49,7 @@ RSpec.describe Cart do
 
     it "removes item price from total_cost" do
       cart.add_item(womens_shoes)
-      expect { cart.remove_item(womens_shoes) }.to change { cart.total_cost }.by -42.00
+      expect { cart.remove_item(womens_shoes) }.to change { cart.total_cost }.by(-42.00)
     end
 
     it "doesn't remove item if quantity is greater than 1" do

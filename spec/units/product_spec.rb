@@ -50,7 +50,7 @@ RSpec.describe Product do
       original_stock = Product.find(1).stock
       Product.increase_stock(1)
       final_stock = Product.find(1).stock
-      expect(original_stock - final_stock).to eq -1
+      expect(original_stock - final_stock).to eq(-1)
     end
   end
 end
