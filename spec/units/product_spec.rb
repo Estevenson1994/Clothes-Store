@@ -31,4 +31,13 @@ RSpec.describe Product do
       expect(item).to have_attributes(stock: 5)
     end
   end
+
+  describe "#reduce_stock" do
+    it "reduces item stock by one" do
+      original_stock = Product.find(1).stock
+      Product.reduce_stock(1)
+      final_stock = Product.find(1).stock
+      expect(original_stock - final_stock).to eq 1
+    end
+  end
 end
