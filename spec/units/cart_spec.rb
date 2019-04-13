@@ -39,6 +39,7 @@ RSpec.describe Cart do
     before(:each) do
       allow(womens_shoes).to receive(:more_than_one?).and_return(false)
       allow(product).to receive(:reduce_stock).with(1, any_args)
+      allow(product).to receive(:increase_stock).with(1, any_args)
     end
 
     it "removes item from the basket" do

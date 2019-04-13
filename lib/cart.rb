@@ -17,6 +17,7 @@ class Cart
 
   def remove_item(item)
     more_than_one(item) ? descrease_item_quantity(item) : remove_item_from_basket(item)
+    @product.increase_stock(item.id)
     @total_cost -= item.price
   end
 

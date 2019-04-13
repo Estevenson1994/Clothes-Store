@@ -26,6 +26,13 @@ feature "Shopping Basket" do
     expect(page).to have_content("Women's Footwear: Almond Toe Court Shoes in Patent Black - £99.00, total stock: 4")
   end
 
+  scenario "stock increases when item is removed from the basket" do
+    enter_product_page
+    add_first_item_to_basket
+    remove_first_item_from_basket
+    expect(page).to have_content("Women's Footwear: Almond Toe Court Shoes in Patent Black - £99.00, total stock: 5")
+  end
+
   scenario "shows total cost of all items in the basket" do
     enter_product_page
     add_first_item_to_basket
