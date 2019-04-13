@@ -39,6 +39,10 @@ RSpec.describe Product do
       final_stock = Product.find(1).stock
       expect(original_stock - final_stock).to eq 1
     end
+
+    it "raises an error if item is out of stock" do
+      expect { Product.reduce_stock(5) }.to raise_error("Item is out of stock")
+    end
   end
 
   describe "#increase_stock" do
