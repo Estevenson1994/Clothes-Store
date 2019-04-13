@@ -25,8 +25,6 @@ class Checkout
     total_item_cost - total_discount
   end
 
-  private 
-
   def invalid_cost(voucher)
     total_item_cost < voucher.min_spend
   end

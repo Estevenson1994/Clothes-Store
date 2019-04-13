@@ -12,6 +12,10 @@
                   <input value="add" type="submit">
                   </form></p>
 
+ <h2> 
+  <%= flash[:notice] %>
+</h2>
+
 <p>Total item cost: £<%= '%.2f' % @checkout.total_item_cost%></p>
 
 <p>Discounts: <ul class="Vouchers">

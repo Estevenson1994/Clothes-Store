@@ -1,4 +1,5 @@
 require "sinatra/base"
+require "sinatra/flash"
 require "./lib/product"
 require "./lib/cart"
 require "./lib/cart_item"
@@ -7,6 +8,7 @@ require "./lib/voucher"
 
 class ClothesStore < Sinatra::Base
   enable :sessions, :method_overide
+  register Sinatra::Flash
 
   get "/" do
     session[:cart] = Cart.new
@@ -43,7 +45,11 @@ class ClothesStore < Sinatra::Base
 
   post "/checkout/voucher/add" do
     voucher = Voucher.find(params[:voucher])
-    session[:checkout].apply_voucher(voucher)
+    if session[:checkout].invalid_cost(voucher)
+      flash[:notice] = "Invalid voucher, total cost should be above £#{voucher.min_spend}"
+    else
+      session[:checkout].apply_voucher(voucher)
+    end
     redirect("/checkout")
   end
 end

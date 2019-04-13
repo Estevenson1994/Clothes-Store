@@ -34,4 +34,18 @@ feature "Checkout" do
     expect(page).to have_content("Total discount: - £5.00")
     expect(page).to have_content("Total including discounts: £193.00")
   end
+
+  scenario "user cannot add voucher if spend is too low" do
+    visit "/"
+    click_button("View Products")
+    within "#product-3" do
+      click_button("Add to basket")
+    end
+
+    click_button("Checkout")
+    fill_in "voucher", :with => "Ten"
+    click_button("add")
+
+    expect(page).to have_content("Invalid voucher, total cost should be above £50")
+  end
 end
