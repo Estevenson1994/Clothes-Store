@@ -46,4 +46,11 @@ feature "Checkout" do
     expect(page.find(".shopping_cart")).to have_selector("li", count: 1)
     expect(page).to have_content("Almond Toe Court Shoes in Patent Black - £99.00, quantity: 1")
   end
+
+  scenario "user is alerted if entering an invalid voucher code" do
+    enter_product_page
+    add_first_item_to_basket
+    checkout_and_add_voucher("Invalid Voucher")
+    expect(page).to have_content("Invalid voucher code")
+  end
 end

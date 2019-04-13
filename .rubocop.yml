@@ -43,9 +43,7 @@ Metrics/LineLength:
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
-    - 'product_data.rb'
-    - 'test_product_data.rb'
-    - 'voucher_data.rb'
+    - 'data/*'
   Max: 100
 
 Metrics/BlockLength:
