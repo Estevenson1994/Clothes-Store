@@ -15,12 +15,12 @@
     <h2> <%= flash[:notice] %> </h2>
         <ul class="products">
           <% @products.each do |item| %>
-            <div id='product-<%= item.id %>' class="panel panel-default">
+            <li id='product-<%= item.id %>' class="panel panel-default">
               <p class="text-center"> <%= item.gender %>'s <%= item.category %>: <%= item.name %> in <%= item.colour %> - £<%= '%.2f' % item.price %>, total stock: <%= item.stock %></p>
               <form class="text-center" action="/cart/products/<%= item.id %>" method="POST">
                 <input type='submit' value='Add to basket'>
               </form>
-            </div><!--/product-id-->
+            </li><!--/product-id-->
           <% end %>
         </ul>
     </div> <!--/col-md-6-->
@@ -32,12 +32,12 @@
       
       <ul class="shopping_cart">
          <% @cart.basket.each do |item|%>
-          <div id="checkout-product-<% item.id %>">
+          <li id="checkout-product-<% item.id %>">
             <p class="text-center"> <%= @product.find(item.id).name %> in <%= @product.find(item.id).colour %> - £<%= '%.2f' % item.price %>, quantity: <%=item.quantity%> </p>
             <form class="text-center" action="/cart/products/<%= item.id %>/delete" method="POST">
               <input type='submit' value='Remove from basket'>
             </form>
-          </div><!--checkout-product-->
+          </li><!--checkout-product-->
         <% end %>
        </ul>
       
