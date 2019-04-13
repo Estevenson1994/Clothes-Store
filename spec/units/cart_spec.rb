@@ -4,7 +4,8 @@ RSpec.describe Cart do
   let(:womens_shoes) { double :womens_shoes, id: 1, category: "Footwear", price: 42.00, quantity: 1 }
   let(:womens_shoes2) { double :womens_shoes2, id: 1, category: "Footwear", price: 42.00, quantity: 1 }
   let(:mens_shoes) { double :mens_shoes, id: 1, category: "Footwear", price: 10.00, quantity: 2 }
-  subject(:cart) { described_class.new }
+  let(:product) { double :product }
+  subject(:cart) { described_class.new(product) }
 
   it "has an initial total cost of 0" do
     expect(cart.total_cost).to eq 0
@@ -15,6 +16,9 @@ RSpec.describe Cart do
   end
 
   describe "#add_item" do
+    before(:each) do
+      allow(product).to receive(:reduce_stock).with(1, any_args)
+    end
     it "adds an item to the basket" do
       cart.add_item(womens_shoes)
       expect(cart.basket).to include(womens_shoes)
@@ -34,6 +38,7 @@ RSpec.describe Cart do
   describe "#remove_item" do
     before(:each) do
       allow(womens_shoes).to receive(:more_than_one?).and_return(false)
+      allow(product).to receive(:reduce_stock).with(1, any_args)
     end
 
     it "removes item from the basket" do

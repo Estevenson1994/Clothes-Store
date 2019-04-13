@@ -1,5 +1,7 @@
 <h1> Items Available: </h1>
 
+<h2> <%= flash[:notice] %> </h2>
+
 <ul class="products">
   <% @products.each do |item| %>
     <li id='product-<%= item.id %>'>

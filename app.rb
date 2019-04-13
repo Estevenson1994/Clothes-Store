@@ -23,9 +23,13 @@ class ClothesStore < Sinatra::Base
   end
 
   post "/cart/products/:id" do
-    item = Product.find(params[:id].to_i)
-    cart_item = CartItem.new(item.id, item.category, item.price, 1)
-    session[:cart].add_item(cart_item)
+    if Product.item_is_out_of_stock(params[:id].to_i)
+      flash[:notice] = "Sorry, this item is out of stock"
+    else
+      item = Product.find(params[:id].to_i)
+      cart_item = CartItem.new(item.id, item.category, item.price, 1)
+      session[:cart].add_item(cart_item)
+    end
     redirect "/products"
   end
 

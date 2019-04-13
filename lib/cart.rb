@@ -1,13 +1,17 @@
+require_relative "./product"
+
 class Cart
   attr_reader :total_cost, :basket
 
-  def initialize
+  def initialize(product = Product)
     @total_cost = 0
     @basket = []
+    @product = product
   end
 
   def add_item(item)
     basket_contains_item(item) ? increase_item_quantity(item) : add_item_to_basket(item)
+    @product.reduce_stock(item.id)
     @total_cost += item.price
   end
 

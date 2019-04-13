@@ -50,4 +50,15 @@ feature "Shopping Basket" do
     end
     expect(page).to have_content("Almond Toe Court Shoes in Patent Black - £99.00, quantity: 1")
   end
+
+  scenario "user cannot add item that is out of stock to basket" do
+    visit "/"
+    click_button("View Products")
+    within "#product-5" do
+      click_button("Add to basket")
+    end
+
+    expect(page).to have_content("Sorry, this item is out of stock")
+    expect(page).to_not have_content("Flip Flops in Blue - £19.00, quantity: 1")
+  end
 end
