@@ -4,13 +4,8 @@ feature "Checkout" do
   include Helpers
   scenario "shows all items and total cost of all items in the basket" do
     enter_product_page
-    within ".products" do
-      click_button("Add to basket", :match => :first)
-    end
-    within ".products" do
-      click_button("Add to basket", :match => :first)
-    end
-
+    add_first_item_to_basket
+    add_first_item_to_basket
     click_button("Checkout")
     expect(page).to have_content("Checkout\n")
     expect(page).to have_content("Almond Toe Court Shoes in Patent Black - £99.00, quantity: 2")
@@ -19,13 +14,8 @@ feature "Checkout" do
 
   scenario "can add voucher at checkout and see the discount" do
     enter_product_page
-    within ".products" do
-      click_button("Add to basket", :match => :first)
-    end
-    within ".products" do
-      click_button("Add to basket", :match => :first)
-    end
-
+    add_first_item_to_basket
+    add_first_item_to_basket
     click_button("Checkout")
     fill_in "voucher", :with => "Five"
     click_button("add")
