@@ -31,6 +31,10 @@ class Checkout
     total_item_cost < voucher.min_spend
   end
 
+  def cart_has_valid_items(voucher)
+    cart_contains_required_item(voucher) || voucher_doesnt_require_item(voucher)
+  end
+
   private
 
   def voucher_doesnt_require_item(voucher)
@@ -43,7 +47,4 @@ class Checkout
     end
   end
 
-  def cart_has_valid_items(voucher)
-    cart_contains_required_item(voucher) || voucher_doesnt_require_item(voucher)
-  end
 end

@@ -48,4 +48,19 @@ feature "Checkout" do
 
     expect(page).to have_content("Invalid voucher, total cost should be above £50")
   end
+
+  scenario "user cannot add voucher if cart doesnt contain required item" do
+    visit "/"
+    click_button("View Products")
+    within "#product-12" do
+      click_button("Add to basket")
+    end
+
+    click_button("Checkout")
+    fill_in "voucher", :with => "Fifteen"
+    click_button("add")
+    p page.body
+
+    expect(page).to have_content("Invalid voucher, cart doesn't contain any Footwear")
+  end
 end
