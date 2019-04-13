@@ -17,8 +17,8 @@ class Product < ActiveType::Object
   end
 
   def self.find(id)
-    item = DATA.select { |item| item[:id] == id }.first
-    create_product(item)
+    product = DATA.select { |item| item[:id] == id }.first
+    create_product(product)
   end
 
   def self.reduce_stock(id)
