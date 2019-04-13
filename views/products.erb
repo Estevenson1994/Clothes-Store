@@ -13,10 +13,9 @@
     <div class="col-md-6">
     <h1 class="text-center"> Items Available </h1>
     <h2> <%= flash[:notice] %> </h2>
-      <div class="panel panel-default">
         <ul class="products">
           <% @products.each do |item| %>
-            <div id='product-<%= item.id %>'>
+            <div id='product-<%= item.id %>' class="panel panel-default">
               <p class="text-center"> <%= item.gender %>'s <%= item.category %>: <%= item.name %> in <%= item.colour %> - £<%= '%.2f' % item.price %>, total stock: <%= item.stock %></p>
               <form class="text-center" action="/cart/products/<%= item.id %>" method="POST">
                 <input type='submit' value='Add to basket'>
@@ -24,7 +23,6 @@
             </div><!--/product-id-->
           <% end %>
         </ul>
-      </div><!--/panel panel-default-->
     </div> <!--/col-md-6-->
 
 
