@@ -1,34 +1,56 @@
-<h2>Checkout </h2>
-<ul class="Shopping_Cart">
-  <% @checkout.cart.basket.each do |item|%>
-    <li id="checkout-product-<% item.id %>">
-      <p> <%= @product.find(item.id).name %> in <%= @product.find(item.id).colour %> - £<%= '%.2f' % item.price %>, quantity: <%=item.quantity%> </p>
-    </li>
-  <% end %>
-</ul>
+<html>
+<head>
+<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
 
-<p>Add voucher: <form action='/checkout/voucher/add' method="POST">
-                  <input name="voucher" type="text" placeholder="Enter voucher code">
-                  <input value="add" type="submit">
-                  </form></p>
+<h2 class="text-center">Checkout </h2>
 
- <h2> 
-  <%= flash[:notice] %>
-</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+    <h2 class="text-center">Items</h3>
+    <ul class="Shopping_Cart">
+      <% @checkout.cart.basket.each do |item|%>
+        <li id="checkout-product-<% item.id %>">
+        <p> <%= @product.find(item.id).name %> in <%= @product.find(item.id).colour %> - £<%= '%.2f' % item.price %>, quantity: <%=item.quantity%> </p>
+        </li>
+      <% end %>
+    </ul>
+    </div><!--/col-md-6-->
 
-<p>Total item cost: £<%= '%.2f' % @checkout.total_item_cost%></p>
+    <div class="col-md-6">
 
-<p>Discounts: <ul class="Vouchers">
-                <% @checkout.vouchers.each do |voucher| %>
-                  <li id="voucher-<% voucher.id %>">
-                    <p> <%= voucher.id %>, discount: - £<%= '%.2f' % voucher.amount %> </p>
-                 </li>
-                <% end %>
-              </ul>
-</p>
+    <p>Add voucher: <form action='/checkout/voucher/add' method="POST">
+                      <input name="voucher" type="text" placeholder="Enter voucher code">
+                      <input value="add" type="submit">
+                      </form></p>
 
-<% if @checkout.vouchers.length > 0 %>
-  <p> Total discount: - £<%= '%.2f' % @checkout.total_discount %>
-<% end %>
+     <h2> 
+       <%= flash[:notice] %>
+    </h2>
 
-<p>Total including discounts: £<%= '%.2f' % @checkout.total_cost%> </p>
+    <p>Total item cost: £<%= '%.2f' % @checkout.total_item_cost%></p>
+
+    <p>Discounts: <ul class="Vouchers">
+                    <% @checkout.vouchers.each do |voucher| %>
+                      <li id="voucher-<% voucher.id %>">
+                        <p> <%= voucher.id %>, discount: - £<%= '%.2f' % voucher.amount %> </p>
+                     </li>
+                    <% end %>
+                  </ul>
+    </p>
+
+    <% if @checkout.vouchers.length > 0 %>
+      <p> Total discount: - £<%= '%.2f' % @checkout.total_discount %>
+    <% end %>
+
+    <p>Total including discounts: £<%= '%.2f' % @checkout.total_cost%> </p>
+    </div><!--/col-md-6-->
+    </div><!--/row-->
+  </div><!--/container-->
+</body>
+</html>
