@@ -32,8 +32,6 @@ class Product < ActiveType::Object
     DATA[index][:stock] += 1
   end
 
-  private
-
   def self.create_product(item)
     Product.new(
       id: item[:id],
