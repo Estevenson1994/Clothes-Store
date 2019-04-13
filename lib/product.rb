@@ -1,5 +1,5 @@
 require "active_type"
-require_relative "../data_setup"
+require_relative "../data/data_setup"
 
 class Product < ActiveType::Object
   attribute :id, :int

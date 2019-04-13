@@ -1,4 +1,4 @@
-require_relative "../test_product_data"
+require_relative "../data/test_product_data"
 
 RESET_DATA = [{ id: 1, stock: 5 },
               { id: 2, stock: 4 },

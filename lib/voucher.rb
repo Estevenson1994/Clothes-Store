@@ -1,5 +1,5 @@
 require "active_type"
-require_relative "../voucher_data"
+require_relative "../data/voucher_data"
 
 class Voucher < ActiveType::Object
   attribute :id, :string
