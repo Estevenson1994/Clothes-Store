@@ -1,4 +1,5 @@
 require "active_type"
+require_relative "../voucher_data"
 
 class Voucher < ActiveType::Object
   attribute :id, :string
@@ -10,10 +11,6 @@ class Voucher < ActiveType::Object
     raise "Invalid voucher id" unless voucher_exists(id)
     return_voucher(id)
   end
-
-  private
-
-  require_relative "../voucher_data"
 
   def self.voucher_exists(id)
     VOUCHERS.any? { |voucher| voucher[:id] == id }
