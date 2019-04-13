@@ -32,9 +32,7 @@ feature "Checkout" do
 
   scenario "user cannot add voucher if cart doesnt contain required item" do
     enter_product_page
-    within "#product-12" do
-      click_button("Add to basket")
-    end
+    add_non_footwear_item_to_basket
     checkout_and_add_voucher("Fifteen")
     expect(page).to have_content("Invalid voucher, cart doesn't contain any Footwear")
   end

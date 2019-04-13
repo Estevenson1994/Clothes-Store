@@ -33,4 +33,10 @@ module Helpers
       click_button("Add to basket")
     end
   end
+
+  def add_non_footwear_item_to_basket
+    within "#product-12" do
+      click_button("Add to basket")
+    end
+  end
 end
