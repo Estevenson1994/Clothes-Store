@@ -56,6 +56,6 @@ class ClothesStore < Sinatra::Base
     else
       session[:checkout].apply_voucher(voucher)
     end
-    redirect("/checkout")
+    redirect "/checkout"
   end
 end
