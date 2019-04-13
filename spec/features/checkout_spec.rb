@@ -25,9 +25,7 @@ feature "Checkout" do
 
   scenario "user cannot add voucher if spend is too low" do
     enter_product_page
-    within "#product-3" do
-      click_button("Add to basket")
-    end
+    add_item_to_basket_that_costs_less_than_50
     checkout_and_add_voucher("Ten")
     expect(page).to have_content("Invalid voucher, total cost should be above £50")
   end

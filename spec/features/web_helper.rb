@@ -27,4 +27,10 @@ module Helpers
     fill_in "voucher", :with => voucher
     click_button("add")
   end
+
+  def add_item_to_basket_that_costs_less_than_50
+    within "#product-3" do
+      click_button("Add to basket")
+    end
+  end
 end
