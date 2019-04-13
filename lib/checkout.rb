@@ -46,5 +46,4 @@ class Checkout
       item.category == voucher.required_item
     end
   end
-
 end

@@ -59,7 +59,6 @@ feature "Checkout" do
     click_button("Checkout")
     fill_in "voucher", :with => "Fifteen"
     click_button("add")
-    p page.body
 
     expect(page).to have_content("Invalid voucher, cart doesn't contain any Footwear")
   end

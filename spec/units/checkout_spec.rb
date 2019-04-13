@@ -38,6 +38,13 @@ RSpec.describe Checkout do
       checkout3 = Checkout.new(cart3)
       expect { checkout3.apply_voucher(fifteen_pound_voucher) }.to raise_error("Invalid voucher, cart doesn't contain required item")
     end
+
+    it "adds voucher if cart does contain correct item" do
+      cart4 = double(:cart3, basket: [mens_blazer, womens_shoes], total_cost: 217.00)
+      checkout4 = Checkout.new(cart4)
+      expect { checkout4.apply_voucher(fifteen_pound_voucher) }.to_not raise_error
+      expect(checkout4.vouchers).to include(fifteen_pound_voucher)
+    end
   end
 
   describe "#total_discount" do
