@@ -12,7 +12,11 @@ class Checkout
 
   def apply_voucher(voucher)
     raise "Invalid voucher, total cost too low" if invalid_cost(voucher)
-    @vouchers << voucher
+    if @cart.basket.any? { |item| item.category == voucher.required_item } || voucher.required_item.nil?
+      @vouchers << voucher
+    else
+      raise "Invalid voucher, cart doesn't contain required item"
+    end
   end
 
   def total_discount
