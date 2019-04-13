@@ -18,7 +18,7 @@ class Voucher < ActiveType::Object
   end
 
   def self.return_voucher(id)
-    voucher = VOUCHERS.select { |voucher| voucher[:id] == id }.first
+    voucher = VOUCHERS.select { |coupon| coupon[:id] == id }.first
     Voucher.new(id: voucher[:id],
                 amount: voucher[:amount],
                 min_spend: voucher[:min_spend],
