@@ -30,18 +30,13 @@ feature "Shopping Basket" do
     enter_product_page
     add_first_item_to_basket
     add_first_item_to_basket
-    within ".shopping_cart" do
-      click_button("Remove from basket", :match => :first)
-    end
+    remove_first_item_from_basket
     expect(page).to have_content("Almond Toe Court Shoes in Patent Black - £99.00, quantity: 1")
   end
 
   scenario "user cannot add item that is out of stock to basket" do
     enter_product_page
-    within "#product-5" do
-      click_button("Add to basket")
-    end
-
+    try_add_out_of_stock_item_to_basket
     expect(page).to have_content("Sorry, this item is out of stock")
     expect(page).to_not have_content("Flip Flops in Blue - £19.00, quantity: 1")
   end
