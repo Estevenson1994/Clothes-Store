@@ -36,7 +36,7 @@
          <% @cart.basket.each do |item|%>
           <div id="checkout-product-<% item.id %>">
             <p class="text-center"> <%= @product.find(item.id).name %> in <%= @product.find(item.id).colour %> - £<%= '%.2f' % item.price %>, quantity: <%=item.quantity%> </p>
-            <form action="/cart/products/<%= item.id %>/delete" method="POST">
+            <form class="text-center" action="/cart/products/<%= item.id %>/delete" method="POST">
               <input type='submit' value='Remove from basket'>
             </form>
           </div><!--checkout-product-->
