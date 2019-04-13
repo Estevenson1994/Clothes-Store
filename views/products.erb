@@ -12,36 +12,44 @@
 
 <h2> <%= flash[:notice] %> </h2>
 
-<ul class="products">
-  <% @products.each do |item| %>
-    <li id='product-<%= item.id %>'>
-      <p> <%= item.gender %>'s <%= item.category %>: <%= item.name %> in <%= item.colour %> - £<%= '%.2f' % item.price %>, total stock: <%= item.stock %></p>
-      <form action="/cart/products/<%= item.id %>" method="POST">
-        <input type='submit' value='Add to basket'>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <ul class="products">
+        <% @products.each do |item| %>
+          <li id='product-<%= item.id %>'>
+            <p> <%= item.gender %>'s <%= item.category %>: <%= item.name %> in <%= item.colour %> - £<%= '%.2f' % item.price %>, total stock: <%= item.stock %></p>
+            <form action="/cart/products/<%= item.id %>" method="POST">
+              <input type='submit' value='Add to basket'>
+            </form>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+
+    <div class="col-md-6">
+      <p>Shopping Cart</p>
+      
+      <ul class="shopping_cart">
+         <% @cart.basket.each do |item|%>
+          <li id="checkout-product-<% item.id %>">
+            <p> <%= @product.find(item.id).name %> in <%= @product.find(item.id).colour %> - £<%= '%.2f' % item.price %>, quantity: <%=item.quantity%> </p>
+            <form action="/cart/products/<%= item.id %>/delete" method="POST">
+              <input type='submit' value='Remove from basket'>
+            </form>
+          </li>
+        <% end %>
+       </ul>
+      
+       <p>Total Cost:</p>
+       <p>£<%= '%.2f' % @cart.total_cost%></p>
+      
+       <form action='/checkout' method="GET">
+        <input type='submit' value='Checkout'>
       </form>
-    </li>
-  <% end %>
-</ul>
-
-
-<p>Shopping Cart</p>
-
-<ul class="shopping_cart">
-   <% @cart.basket.each do |item|%>
-    <li id="checkout-product-<% item.id %>">
-      <p> <%= @product.find(item.id).name %> in <%= @product.find(item.id).colour %> - £<%= '%.2f' % item.price %>, quantity: <%=item.quantity%> </p>
-      <form action="/cart/products/<%= item.id %>/delete" method="POST">
-        <input type='submit' value='Remove from basket'>
-      </form>
-    </li>
-  <% end %>
- </ul>
-
- <p>Total Cost:</p>
- <p>£<%= '%.2f' % @cart.total_cost%></p>
-
- <form action='/checkout' method="GET">
-  <input type='submit' value='Checkout'>
-</form>
-
-<body>
+      
+      <body>
+    </div>
+  </div>
+</div>
