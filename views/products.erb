@@ -1,3 +1,4 @@
+<html>
 <head>
 <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -13,21 +14,24 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <ul class="products">
-        <% @products.each do |item| %>
-          <li id='product-<%= item.id %>'>
-            <p> <%= item.gender %>'s <%= item.category %>: <%= item.name %> in <%= item.colour %> - £<%= '%.2f' % item.price %>, total stock: <%= item.stock %></p>
-            <form action="/cart/products/<%= item.id %>" method="POST">
-              <input type='submit' value='Add to basket'>
-            </form>
-          </li>
-        <% end %>
-      </ul>
+      <div class="panel panel-default">
+        <ul class="products">
+          <% @products.each do |item| %>
+            <li id='product-<%= item.id %>'>
+              <p> <%= item.gender %>'s <%= item.category %>: <%= item.name %> in <%= item.colour %> - £<%= '%.2f' % item.price %>, total stock: <%= item.stock %></p>
+              <form action="/cart/products/<%= item.id %>" method="POST">
+                <input type='submit' value='Add to basket'>
+              </form>
+            </li>
+          <% end %>
+        </ul>
+      </div><!--/panel panel-default-->
     </div> <!--/col-md-6-->
 
 
     <div class="col-md-6">
-      <p>Shopping Cart</p>
+    <h3>Shopping Cart</h3>
+      <div class="panel panel-default" style="text-align:centre">
       
       <ul class="shopping_cart">
          <% @cart.basket.each do |item|%>
@@ -43,11 +47,12 @@
        <p>Total Cost:</p>
        <p>£<%= '%.2f' % @cart.total_cost%></p>
       
-       <form action='/checkout' method="GET">
-        <input type='submit' value='Checkout'>
-      </form>
-      
-      <body>
+        <form action='/checkout' method="GET">
+          <input type='submit' value='Checkout'>
+        </form>
+      </div><!--/panel panel-default-->
     </div><!--/col-md-6-->
   </div><!--/row-->
 </div><!--/container-->
+<body>
+</html>
