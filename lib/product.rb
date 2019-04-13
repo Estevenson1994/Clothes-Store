@@ -23,6 +23,7 @@ class Product < ActiveType::Object
 
   def self.reduce_stock(id)
     raise "Item is out of stock" if item_is_out_of_stock(id)
+
     index = find_item_index(id)
     DATA[index][:stock] -= 1
   end

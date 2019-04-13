@@ -9,6 +9,7 @@ class Voucher < ActiveType::Object
 
   def self.find(id)
     raise "Invalid voucher id" unless voucher_exists(id)
+
     return_voucher(id)
   end
 

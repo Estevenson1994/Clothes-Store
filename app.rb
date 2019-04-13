@@ -44,7 +44,7 @@ class ClothesStore < Sinatra::Base
     @product = Product
     session[:checkout] = Checkout.new(session[:cart]) if session[:checkout].nil?
     @checkout = session[:checkout]
-    erb :'checkout'
+    erb :checkout
   end
 
   post "/checkout/voucher/add" do
