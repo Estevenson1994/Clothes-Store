@@ -40,8 +40,11 @@
 
     <p>Discounts: <ul class="Vouchers">
                     <% @checkout.vouchers.each do |voucher| %>
-                      <div id="voucher-<% voucher.id %>">
+                      <div id="voucher-<%= voucher.id %>">
                         <p> <%= voucher.id %>, discount: - £<%= '%.2f' % voucher.amount %> </p>
+                        <form action='checkout/voucher/<%= voucher.id %>/delete' method='post'>
+                          <input type="submit" value="remove">
+                        </form>
                      </div><!--/voucher-->
                     <% end %>
                   </ul>

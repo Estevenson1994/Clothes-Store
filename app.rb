@@ -60,4 +60,10 @@ class ClothesStore < Sinatra::Base
     end
     redirect "/checkout"
   end
+
+  post "/checkout/voucher/:id/delete" do
+    voucher = Voucher.find(params[:id])
+    session[:checkout].remove_voucher(voucher)
+    redirect "/checkout"
+  end
 end

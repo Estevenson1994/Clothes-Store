@@ -53,4 +53,15 @@ feature "Checkout" do
     checkout_and_add_voucher("Invalid Voucher")
     expect(page).to have_content("Invalid voucher code")
   end
+
+  scenario "user can remove voucher from checkout" do
+    enter_product_page
+    add_first_item_to_basket
+    checkout_and_add_voucher("Five")
+    within("#voucher-Five") do
+      click_button("remove")
+    end
+    expect(page).to_not have_content("Five, discount: - £5.00")
+    expect(page).to have_content("Total including discounts: £99.00")
+  end
 end
