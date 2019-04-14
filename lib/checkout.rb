@@ -27,15 +27,23 @@ class Checkout
     total_item_cost - total_discount
   end
 
-  def invalid_cost(voucher)
-    total_item_cost < voucher.min_spend
+  def invalid_voucher_message(voucher)
+    if invalid_cost(voucher)
+      "Invalid voucher, total cost should be above £#{voucher.min_spend}"
+    elsif !cart_has_valid_items(voucher)
+      "Invalid voucher, cart doesn't contain any #{voucher.required_item}"
+    end
   end
 
-  def cart_has_valid_items(voucher)
-    cart_contains_required_item(voucher) || voucher_doesnt_require_item(voucher)
+  def voucher_is_invalid(voucher)
+    invalid_cost(voucher) || !cart_has_valid_items(voucher)
   end
 
   private
+
+  def invalid_cost(voucher)
+    total_item_cost < voucher.min_spend
+  end
 
   def voucher_doesnt_require_item(voucher)
     voucher.required_item.nil?

@@ -1,13 +1,13 @@
 require "checkout"
 
 RSpec.describe Checkout do
-  let(:womens_shoes) { double :womens_shoes, category: "Footware", price: 42.00 }
-  let(:mens_shoes) { double :mens_shoes, category: "Footware", price: 10.00 }
+  let(:womens_shoes) { double :womens_shoes, category: "Footwear", price: 42.00 }
+  let(:mens_shoes) { double :mens_shoes, category: "Footwear", price: 10.00 }
   let(:mens_blazer) { double :mens_blazer, category: "Formalwear", price: 175.00 }
   let(:cart) { double :cart, basket: [womens_shoes, mens_shoes], total_cost: 52.00 }
   let(:five_pound_voucher) { double :five_pound_voucher, amount: 5, min_spend: 0, required_item: nil }
   let(:ten_pound_voucher) { double :ten_pound_voucher, amount: 10, min_spend: 50, required_item: nil }
-  let(:fifteen_pound_voucher) { double :fifteen_pound_voucher, amount: 15, min_spend: 75, required_item: "Footware" }
+  let(:fifteen_pound_voucher) { double :fifteen_pound_voucher, amount: 15, min_spend: 75, required_item: "Footwear" }
   subject(:checkout) { described_class.new(cart) }
 
   describe "#total_item_cost" do
@@ -74,6 +74,20 @@ RSpec.describe Checkout do
       cart3 = double(:cart3, basket: [mens_blazer], total_cost: 175.00)
       checkout3 = Checkout.new(cart3)
       expect(checkout3.voucher_is_invalid(fifteen_pound_voucher)).to eq true
+    end
+  end
+
+  describe "invalid_voucher_message" do
+    it "returns message for when spend is too low" do
+      cart2 = double(:cart2, basket: [womens_shoes], total_cost: 42.00)
+      checkout2 = Checkout.new(cart2)
+      expect(checkout2.invalid_voucher_message(ten_pound_voucher)).to eq "Invalid voucher, total cost should be above £50"
+    end
+
+    it "returns message for when cart doesn't contain correct item" do
+      cart3 = double(:cart3, basket: [mens_blazer], total_cost: 175.00)
+      checkout3 = Checkout.new(cart3)
+      expect(checkout3.invalid_voucher_message(fifteen_pound_voucher)).to eq "Invalid voucher, cart doesn't contain any Footwear"
     end
   end
 end
