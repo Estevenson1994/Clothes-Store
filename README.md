@@ -1,5 +1,7 @@
 <a href="https://codeclimate.com/github/Estevenson1994/Clothes-Store/maintainability"><img src="https://api.codeclimate.com/v1/badges/0b3432a46598e00c3572/maintainability" /></a>  <a href="https://codeclimate.com/github/Estevenson1994/Clothes-Store/test_coverage"><img src="https://api.codeclimate.com/v1/badges/0b3432a46598e00c3572/test_coverage" /></a>  [![Build Status](https://travis-ci.org/Estevenson1994/Clothes-Store.svg?branch=master)](https://travis-ci.org/Estevenson1994/Clothes-Store)
 
+[Intro](#clothes-store) | [Tech](#technologies-used) | [Instructions](#how-to-use) | [User Stories](#user-stories) | [Approach](#approach) | [Challenges](#challenges)
+
 # Clothes Store
 
 This is a responsive website designed to replicate a clothing retailers website. This has been completed with 100% test coverage and codeclimate maintainability grade A.
@@ -165,7 +167,7 @@ This is a regular ruby class that is instantiated on the home page. I chose to i
 
 Found in [lib/cart_item.rb](https://github.com/Estevenson1994/Clothes-Store/blob/master/lib/cart_item.rb)
 
-This object has been written as a Struct. This was chosen as the cart item is only a tempory object used to keep track of what the user is intending to buy. Therefore, I decided a class was not needed. 
+This object has been written as a Struct. This was chosen because the cart item is only a tempory object used to keep track of what the user is intending to buy. Therefore, I decided a class was not needed, and this approach would be more efficient. 
 A struct also takes up less memory than a regular object, therefore more of these can be stored in the session, enabling the user to add more items to their basket. 
 
 #### This class has the following attributes:
@@ -221,9 +223,15 @@ This object is created when the user goes to the checkout page.
 
 #total_cost - returns the total cost of all items in the basket including any discounts applied
 
-#invalid_voucher_message - this method is called if an invalid voucher is applied. It will a message explaining to the user why the voucher is invalid.
+#invalid_voucher_message - this method is called if an invalid voucher is applied. It will return a message explaining to the user why the voucher is invalid.
 
 #voucher_is_invalid(voucher) - returns true if voucher is invalid depending on items in the basket
+
+## Challenges
+
+
+
+
 
 
 
