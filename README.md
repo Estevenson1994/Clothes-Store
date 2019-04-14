@@ -108,10 +108,10 @@ This program is build using the Model-View-Controller architectual pattern:
 
 ### Data Storage
 
-This application uses data stored as a hash constant. This can be found in the folder `/data/*rb`
+This application uses data stored as a hash constant. This can be found in the folder [data](https://github.com/Estevenson1994/Clothes-Store/tree/master/data).
 This was chosen to Mock out the database interaction and to replicate how the data would be return if a postgres database was used. Therefore, with further development, a database can implemented without having to change the code.
 
-This folder also contains the file `data_setup.rb` which tells to program which data use, depending on which environment it is running, e.g. test or production. Therefore the production data is not altered when running tests.
+This folder also contains the file [data_setup.rb](https://github.com/Estevenson1994/Clothes-Store/blob/master/data/data_setup.rb) which tells the program which data use, depending on which environment it is running, e.g. test or production. Therefore the production data is not altered when running tests.
 
 The test data is reset before each test in a 'before' block found in the [spec_helper](https://github.com/Estevenson1994/Clothes-Store/blob/master/spec/spec_helper.rb) file so that each test starts with a fresh data set. This method was writen [here](https://github.com/Estevenson1994/Clothes-Store/blob/master/spec/reset_test_data.rb). This is to replicate a database tear down that would be performed if a database was used.
 
