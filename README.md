@@ -88,17 +88,17 @@ I want to be able to remove the voucher from checkout
 
 ## Approach
 
-The technology used for this application includes Ruby and Sinatra, as I feel these were the best options to demonstrate the practises I have learnt during my time at Makers. I chose not to use the Rails framework for the puropse of this excercise, to demonstrate more of my programming ability. Meaning, each section of the program I have build myself, whereas if I had used Rails, as useful as it is, alot of the functionality is provided.
+The technology used for this application includes Ruby and Sinatra, as I feel these were the best options to demonstrate the practices I have learnt during my time at Makers. I chose not to use the Rails framework for the purpose of this excercise, to demonstrate more of my programming ability. Meaning, each section of the program I have build myself, whereas if I had used Rails, as useful as it is, alot of the functionality is provided.
 
 I took an iterative approach to building this application. This went as follows:
 1. Plan out minimum viable product for the iteration. The first iteration included the first four user stories
-2. Diagram out how the program should work.
+2. Diagram out how the program should work
 3. Write unit tests to get the backend functionality to work
 4. Pass unit tests
 5. Refactor if necessary
 5. Write feature tests from the users perspective
 6. Implement api end points and UI design to pass feature tests
-8. Refactor if necessaru
+8. Refactor if necessary
 7. Repeat for each iteration until all user stories were complete
 
 
@@ -113,9 +113,9 @@ This program is build using the Model-View-Controller architectual pattern:
 This application uses data stored as an array of hashes, stored in a constant. This can be found in the folder [data](https://github.com/Estevenson1994/Clothes-Store/tree/master/data).
 This was chosen to Mock out the database interaction and to replicate how the data would be return if a postgres database was used. Therefore, with further development, a database can implemented without having to change the code.
 
-This folder also contains the file [data_setup.rb](https://github.com/Estevenson1994/Clothes-Store/blob/master/data/data_setup.rb) which tells the program which data use, depending on which environment it is running, e.g. test or production. Therefore the production data is not altered when running tests.
+This folder also contains the file [data_setup.rb](https://github.com/Estevenson1994/Clothes-Store/blob/master/data/data_setup.rb) which tells the program which data to use, depending on which environment it is running in i.e. test or production. Therefore the production data is not altered when running tests.
 
-The test data is reset before each test in a 'before' block found in the [spec_helper](https://github.com/Estevenson1994/Clothes-Store/blob/master/spec/spec_helper.rb) file so that each test starts with a fresh data set. This method was writen [here](https://github.com/Estevenson1994/Clothes-Store/blob/master/spec/reset_test_data.rb). This is to replicate a database tear down that would be performed if a database was used.
+The test data is reset before each test in a 'before' block found in the [spec_helper](https://github.com/Estevenson1994/Clothes-Store/blob/master/spec/spec_helper.rb). Therefore each test starts with a fresh data set. This method was writen [here](https://github.com/Estevenson1994/Clothes-Store/blob/master/spec/reset_test_data.rb). This is to replicate a database tear down that would be performed if a database was used.
 
 ![screenshot](https://i.imgur.com/yf69740.png)
 
@@ -125,13 +125,13 @@ The test data is reset before each test in a 'before' block found in the [spec_h
 
 Found in [lib/product.rb](https://github.com/Estevenson1994/Clothes-Store/blob/master/lib/product.rb)
 
-This class was designed as an [ActiveType](https://github.com/makandra/active_type) class. This was chosen as a mock object that replicates an ActiveRecord object that is not backed by a database. This was chosen so that ActiveRecord could easility be implemented with further development, if it was decided to include a database.
+This class was designed as an [ActiveType](https://github.com/makandra/active_type) class. This object replicates an ActiveRecord object, but is not backed by a database. This was chosen so that ActiveRecord could easily be implemented with further development.
 
-#### The methods written on this class were designed to replicate ActiveRecord methods e.g.:
+#### The methods written on this class were designed to replicate ActiveRecord methods:
 
 #all - method that returns all product data
 
-#find(id) - method to find a particular product details by its id.
+#find(id) - method to find a particular product by its id.
 
 #### The other methods are specific to this usecase:
 
@@ -141,7 +141,7 @@ This class was designed as an [ActiveType](https://github.com/makandra/active_ty
 
 #create_product(item) - creates a Product object
 
-#find_item_index(id) - finds the index of a item stored in the data constant by its id
+#find_item_index(id) - finds the index of a item stored by its id (data is stored in an array)
 
 #item_is_out_of_stock(id) - returns true if item is out of stock
 
@@ -149,26 +149,26 @@ This class was designed as an [ActiveType](https://github.com/makandra/active_ty
 
 Found in [lib/cart.rb](https://github.com/Estevenson1994/Clothes-Store/blob/master/lib/cart.rb)
 
-This is a regular ruby class that is instantiated on the home page. I chose to instantiate this here rather than when an item is added to the basket as to prevent a new cart being created everytime an item is added. 
+This is a regular ruby class, instantiated on the home page. I chose to instantiate this here rather than when an item is added to the basket as to prevent a new cart being created everytime an item is added to it.
 
 #### This class has the following attributes:
 
 + basket - array to store items to be purchased (stores cart items not products - see below)
 + total_cost - keeps track of the total cost of items in the basket
-+ product - has access to the product class to recieve item details - this is so the details can be displayed on the UI without having to store unnecessary data in the basket (this had to be kept to a minimum due to the small storage space in sinatra sessions).
++ product - has access to the product class to recieve item details - this is so the details can be given to the CartItem which is stored in the basket.
 
 #### The main two methods found on this class are:
 
-#add_item(item) -  either increase the quantity of the cart object in the basket, or add a new cart object to the basket and update the total cost
+#add_item(item) -  either increase the quantity of the CartItem in the basket, or add a new cart object to the basket and update the total cost
 
-#remove_item(item) - either decrease the quantity of the cart object in the basket, or remove if from the basket and update the total_cost
+#remove_item(item) - either decrease the quantity of the CartItem in the basket, or remove if from the basket and update the total_cost
 
 ### CartItem
 
 Found in [lib/cart_item.rb](https://github.com/Estevenson1994/Clothes-Store/blob/master/lib/cart_item.rb)
 
 This object has been written as a Struct. This was chosen because the cart item is only a tempory object used to keep track of what the user is intending to buy. Therefore, I decided a class was not needed, and this approach would be more efficient. 
-A struct also takes up less memory than a regular object, therefore more of these can be stored in the session, enabling the user to add more items to their basket. 
+A struct also takes up less memory than a regular object, therefore more of these can be stored in the cookie/session, enabling the user to add more items to their basket. 
 
 #### This class has the following attributes:
 
@@ -179,7 +179,7 @@ A struct also takes up less memory than a regular object, therefore more of thes
 
 #### Methods:
 
-#increase_quantity - to be called when added a duplicate item to the basket. This is done instead on adding a whole new object to th basket to save memory on the session.
+#increase_quantity - to be called when adding a duplicate item to the basket. This is done instead on adding a whole new object to the basket to save memory on the cookie.
 
 #decrease_quatity - to be called when removing a duplicate item from the basket.
 
@@ -211,7 +211,7 @@ This object is created when the user goes to the checkout page.
 #### Attributes:
 
 + cart - stores the cart object containing all the items the user is planning to purchase
-+ vouchers - stores any vouchers that the user may have
++ vouchers - stores any vouchers that the user may have applied
 
 #### Methods:
 
@@ -237,13 +237,13 @@ I therefore found that I could use a struct object to create a cart item, which 
 
 2. To record the number of items in stock, I found it was most efficient to actually manipulate to data rather than store it in a session, due to the reasons from the previous challenge. 
 
-However, I found that when running my tests, the change in data was persiting. Therefore I had tests failing, only because an action a previous test had performed. 
+However, I found that when running my tests, the change in data was persiting. Therefore I had tests failing because an action a previous test had performed was changing the data. 
 
-I also found that when I assigned the constant DATA = TEST_PRODUCT_DATA, when I manipulated DATA within my tests, TEST_PRODUCT_DATA was also manipulated. This is a ruby constant behavour. This meant I couldn't reassign DATA to TEST_PRODUCT_DATA before each test as TEST_PRODUCT_DATA had also changed. 
+I also found that when I assigned the constant DATA = TEST_PRODUCT_DATA, manipulating DATA within my tests, TEST_PRODUCT_DATA was also manipulated. This is a ruby constant behavour. This meant I couldn't reassign DATA to TEST_PRODUCT_DATA before each test as TEST_PRODUCT_DATA had also changed. 
 
 Therefore I had to come up with a way to reset the data before each test. This is done with [this](https://github.com/Estevenson1994/Clothes-Store/blob/master/spec/reset_test_data.rb) method. 
 
-3. Using restful routes. When removing items from the cart and vouchers from checkout, I would like to use the restful route 'delete' rather than a 'post' request. However, when using a hidden form tag in my views, the app was directing to a 'post' endpoint and adding items/vouchers instead of removing them. This is something I am still debugging.
+3. Using restful routes. When removing items from the cart and vouchers from checkout, I would like to use the restful route 'delete' rather than a 'post' request. However, when using a hidden form tag in my views, the app was directing to the corresponding 'post' endpoint and adding items/vouchers instead of removing them. This is something I am still debugging.
 
 ## Assumptions
 
