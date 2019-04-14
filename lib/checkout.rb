@@ -46,4 +46,8 @@ class Checkout
       item.category == voucher.required_item
     end
   end
+
+  def cart_has_valid_items(voucher)
+    cart_contains_required_item(voucher) || voucher_doesnt_require_item(voucher)
+  end
 end

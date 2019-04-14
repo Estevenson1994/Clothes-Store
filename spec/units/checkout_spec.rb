@@ -62,4 +62,18 @@ RSpec.describe Checkout do
       expect(checkout.total_cost).to eq 37
     end
   end
+
+  describe "#voucher_is_invalid" do
+    it "returns true if cost is too low for voucher" do
+      cart2 = double(:cart2, basket: [womens_shoes], total_cost: 42.00)
+      checkout2 = Checkout.new(cart2)
+      expect(checkout2.voucher_is_invalid(ten_pound_voucher)).to eq true
+    end
+
+    it "returns true if cart doesn't contain required item" do
+      cart3 = double(:cart3, basket: [mens_blazer], total_cost: 175.00)
+      checkout3 = Checkout.new(cart3)
+      expect(checkout3.voucher_is_invalid(fifteen_pound_voucher)).to eq true
+    end
+  end
 end
