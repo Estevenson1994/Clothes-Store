@@ -48,17 +48,15 @@ class ClothesStore < Sinatra::Base
   end
 
   post "/checkout/voucher/add" do
-    if Voucher.voucher_exists(params[:voucher])
+    unless Voucher.voucher_exists(params[:voucher])
+      flash[:notice] = "Invalid voucher code"
+    else
       voucher = Voucher.find(params[:voucher])
-      if session[:checkout].invalid_cost(voucher)
-        flash[:notice] = "Invalid voucher, total cost should be above £#{voucher.min_spend}"
-      elsif !session[:checkout].cart_has_valid_items(voucher)
-        flash[:notice] = "Invalid voucher, cart doesn't contain any #{voucher.required_item}"
+      if session[:checkout].voucher_is_invalid(voucher)
+        flash[:notice] = session["checkout"].invalid_voucher_message(voucher)
       else
         session[:checkout].apply_voucher(voucher)
       end
-    else
-      flash[:notice] = "Invalid voucher code"
     end
     redirect "/checkout"
   end
