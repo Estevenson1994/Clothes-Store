@@ -1,6 +1,6 @@
 <a href="https://codeclimate.com/github/Estevenson1994/Clothes-Store/maintainability"><img src="https://api.codeclimate.com/v1/badges/0b3432a46598e00c3572/maintainability" /></a>  <a href="https://codeclimate.com/github/Estevenson1994/Clothes-Store/test_coverage"><img src="https://api.codeclimate.com/v1/badges/0b3432a46598e00c3572/test_coverage" /></a>  [![Build Status](https://travis-ci.org/Estevenson1994/Clothes-Store.svg?branch=master)](https://travis-ci.org/Estevenson1994/Clothes-Store)
 
-[Intro](#clothes-store) | [Tech](#technologies-used) | [Instructions](#how-to-use) | [User Stories](#user-stories) | [Approach](#approach) | [Challenges](#challenges)
+[Intro](#clothes-store) | [Tech](#technologies-used) | [Instructions](#how-to-use) | [User Stories](#user-stories) | [Approach](#approach) | [Challenges](#challenges) | [Assumptions](#assumptions)
 
 # Clothes Store
 
@@ -228,6 +228,35 @@ This object is created when the user goes to the checkout page.
 #voucher_is_invalid(voucher) - returns true if voucher is invalid depending on items in the basket
 
 ## Challenges
+
+There were a few challenges I faced while completing this project:
+
+1. I was first trying to design this program where product objects were stored on the cart. However, as the storage space is only 4kb when using sessions, I could only store a small number of products in the cart. Therefore, after some research I found that it is common practise to only store a small portion of the item details in the cart to save space.
+
+I therefore found that I could use a struct object to create a cart item, which uses less memory than a normal object. I also altered the attribute 'quantity' on the struct when duplicate items were added to the basket rather than adding a new object. This also saved space in the cookie, so more items can be added to the basket.
+
+2. To record the number of items in stock, I found it was most efficient to actually manipulate to data rather than store it in a session, due to the reasons from the previous challenge. 
+
+However, I found that when running my tests, the change in data was persiting. Therefore I had tests failing, only because an action a previous test had performed. 
+
+I also found that when I assigned the constant DATA = TEST_PRODUCT_DATA, when I manipulated DATA within my tests, TEST_PRODUCT_DATA was also manipulated. This is a ruby constant behavour. This meant I couldn't reassign DATA to TEST_PRODUCT_DATA before each test as TEST_PRODUCT_DATA had also changed. 
+
+Therefore I had to come up with a way to reset the data before each test. This is done with [this](https://github.com/Estevenson1994/Clothes-Store/blob/master/spec/reset_test_data.rb) method. 
+
+3. Using restful routes. When removing items from the cart and vouchers from checkout, I would like to use the restful route 'delete' rather than a 'post' request. However, when using a hidden form tag in my views, the app was directing to a 'post' endpoint and adding items/vouchers instead of removing them. This is something I am still debugging.
+
+## Assumptions
+
+There are a few assumptions I have made whilst building this program:
+
+1. As UI design wasn't a requirement for this exercise, I have kept the front end very basic, only using Bootstrap framework to include responsiveness.  
+2. A user can add more than one voucher, and can add the same voucher twice.
+3. The criteria for adding a voucher that requires a minimum spend checks the total cost of all items, not including any discounts, if the user has already added a voucher.
+
+These are things I would want to work on next if I was to continue with this project. 
+
+
+
 
 
 
