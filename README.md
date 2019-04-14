@@ -108,7 +108,7 @@ This program is build using the Model-View-Controller architectual pattern:
 
 ### Data Storage
 
-This application uses data stored as a hash constant. This can be found in the folder [data](https://github.com/Estevenson1994/Clothes-Store/tree/master/data).
+This application uses data stored as an array of hashes, stored in a constant. This can be found in the folder [data](https://github.com/Estevenson1994/Clothes-Store/tree/master/data).
 This was chosen to Mock out the database interaction and to replicate how the data would be return if a postgres database was used. Therefore, with further development, a database can implemented without having to change the code.
 
 This folder also contains the file [data_setup.rb](https://github.com/Estevenson1994/Clothes-Store/blob/master/data/data_setup.rb) which tells the program which data use, depending on which environment it is running, e.g. test or production. Therefore the production data is not altered when running tests.
@@ -116,6 +116,122 @@ This folder also contains the file [data_setup.rb](https://github.com/Estevenson
 The test data is reset before each test in a 'before' block found in the [spec_helper](https://github.com/Estevenson1994/Clothes-Store/blob/master/spec/spec_helper.rb) file so that each test starts with a fresh data set. This method was writen [here](https://github.com/Estevenson1994/Clothes-Store/blob/master/spec/reset_test_data.rb). This is to replicate a database tear down that would be performed if a database was used.
 
 ![screenshot](https://i.imgur.com/yf69740.png)
+
+### Class Design
+
+### Product 
+
+Found in [lib/product.rb](https://github.com/Estevenson1994/Clothes-Store/blob/master/lib/product.rb)
+
+This class was designed as an [ActiveType](https://github.com/makandra/active_type) class. This was chosen as a mock object that replicates an ActiveRecord object that is not backed by a database. This was chosen so that ActiveRecord could easility be implemented with further development, if it was decided to include a database.
+
+#### The methods written on this class were designed to replicate ActiveRecord methods e.g.:
+
+#all - method that returns all product data
+
+#find(id) - method to find a particular product details by its id.
+
+#### The other methods are specific to this usecase:
+
+#reduce_stock(id) - reduces the stock of a particualar item - to be called when adding an item to the cart
+
+#increase stock(id) - inceases the stock of a particular item - to be called when removing an item from the cart
+
+#create_product(item) - creates a Product object
+
+#find_item_index(id) - finds the index of a item stored in the data constant by its id
+
+#item_is_out_of_stock(id) - returns true if item is out of stock
+
+### Cart
+
+Found in [lib/cart.rb](https://github.com/Estevenson1994/Clothes-Store/blob/master/lib/cart.rb)
+
+This is a regular ruby class that is instantiated on the home page. I chose to instantiate this here rather than when an item is added to the basket as to prevent a new cart being created everytime an item is added. 
+
+#### This class has the following attributes:
+
++ basket - array to store items to be purchased (stores cart items not products - see below)
++ total_cost - keeps track of the total cost of items in the basket
++ product - has access to the product class to recieve item details - this is so the details can be displayed on the UI without having to store unnecessary data in the basket (this had to be kept to a minimum due to the small storage space in sinatra sessions).
+
+#### The main two methods found on this class are:
+
+#add_item(item) -  either increase the quantity of the cart object in the basket, or add a new cart object to the basket and update the total cost
+
+#remove_item(item) - either decrease the quantity of the cart object in the basket, or remove if from the basket and update the total_cost
+
+### CartItem
+
+Found in [lib/cart_item.rb](https://github.com/Estevenson1994/Clothes-Store/blob/master/lib/cart_item.rb)
+
+This object has been written as a Struct. This was chosen as the cart item is only a tempory object used to keep track of what the user is intending to buy. Therefore, I decided a class was not needed. 
+A struct also takes up less memory than a regular object, therefore more of these can be stored in the session, enabling the user to add more items to their basket. 
+
+#### This class has the following attributes:
+
++ id - to keep a relationship between CartItems and Products
++ category - to be used to check if the right item is in the basket when a voucher is applied at checkout
++ price - to keep track of the price of the items in the basket
++ quantity - to keep track of the number of times the item is added to the basket.
+
+#### Methods:
+
+#increase_quantity - to be called when added a duplicate item to the basket. This is done instead on adding a whole new object to th basket to save memory on the session.
+
+#decrease_quatity - to be called when removing a duplicate item from the basket.
+
+#more_than_one? - returns true if a cart item has been added to the basket more than once, and therefore it has a quantity greater than 0.
+
+### Voucher
+
+Found in [lib/voucher.rb](https://github.com/Estevenson1994/Clothes-Store/blob/master/lib/voucher.rb)
+
+This class was also designed as an ActiveType object so that it could be easily converted into an ActiveRecord object. This design choice was made, so that more vouchers could easily be added to the data.
+
+#### This class has the following attributes:
+
++ id - each voucher has a unique id related to the amount of money it will take of the total price
++ amount - to store how much money it will discount
++ min_spend - stores whether the voucher requires a minimum spend
++ required_item - stores whether the voucher requires a particular item to be in the basket
+
+#### Methods:
+
+#find(id) - will return the voucher with the specified id. This will also raise an error if the id is invalid. This was designed to replicate the ActiveRecord 'find' method.
+
+### Checkout
+
+Found in [lib/checkout.rb](https://github.com/Estevenson1994/Clothes-Store/blob/master/lib/checkout.rb)
+
+This object is created when the user goes to the checkout page.
+
+#### Attributes:
+
++ cart - stores the cart object containing all the items the user is planning to purchase
++ vouchers - stores any vouchers that the user may have
+
+#### Methods:
+
+#apply_voucher(voucher) - adds voucher to the vouchers attribute. This is called when the user types in the voucher id into the text field on the checkout page. [Example](https://github.com/Estevenson1994/Clothes-Store/wiki/How-the-program-works#adding-vouchers)
+
+#remove_voucher(voucher) - removes voucher from checkout
+
+#total_discount - calculates the total discount applied by vouchers
+
+#total_cost - returns the total cost of all items in the basket including any discounts applied
+
+#invalid_voucher_message - this method is called if an invalid voucher is applied. It will a message explaining to the user why the voucher is invalid.
+
+#voucher_is_invalid(voucher) - returns true if voucher is invalid depending on items in the basket
+
+
+
+
+
+
+
+
 
 
 
