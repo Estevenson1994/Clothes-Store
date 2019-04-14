@@ -90,4 +90,12 @@ RSpec.describe Checkout do
       expect(checkout3.invalid_voucher_message(fifteen_pound_voucher)).to eq "Invalid voucher, cart doesn't contain any Footwear"
     end
   end
+
+  describe "#remove voucher" do
+    it "removes voucher from checkout" do
+      checkout.apply_voucher(five_pound_voucher)
+      checkout.remove_voucher(five_pound_voucher)
+      expect(checkout.vouchers).to_not include(five_pound_voucher)
+    end
+  end
 end
