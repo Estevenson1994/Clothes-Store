@@ -4,7 +4,7 @@
 
 # Clothes Store
 
-This is a responsive website designed to replicate a clothing retailers website. This has been completed with 100% test coverage and codeclimate maintainability grade A.
+This is a [responsive website](https://github.com/Estevenson1994/Clothes-Store/wiki/Responsive-Web-Page) designed to replicate a clothing retailers website. This has been completed with 100% test coverage and codeclimate maintainability grade A.
 
 ## Technologies used:
 
