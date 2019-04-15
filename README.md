@@ -149,7 +149,7 @@ This class was designed as an [ActiveType](https://github.com/makandra/active_ty
 
 Found in [lib/cart.rb](https://github.com/Estevenson1994/Clothes-Store/blob/master/lib/cart.rb)
 
-This is a regular ruby class, instantiated on the home page. I chose to instantiate this here rather than when an item is added to the basket as to prevent a new cart being created everytime an item is added to it.
+This is a regular ruby class, instantiated on the home page. I chose to instantiate this here rather than when an item is added to the basket as to prevent a new cart being created everytime an item is added to it, or sending multiple requests to the server to check if the cart object exits.
 
 #### This class has the following attributes:
 
